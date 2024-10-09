@@ -1,0 +1,58 @@
+import java.util.Scanner; // Importa la clase Scanner para poder leer entradas del usuario desde la consola.
+
+public class Main { // Define la clase principal llamada Main.
+
+    // Este método se encarga de verificar si una contraseña es segura.
+    public static boolean isSecurePassword(String password) {
+        // Verifica si la contraseña tiene menos de 10 caracteres. Si es así, no es segura.
+        if (password.length() < 10) {
+            return false; // Devuelve false porque la longitud es insuficiente.
+        }
+
+        // Variables que nos ayudarán a verificar si la contraseña tiene al menos
+        // una letra, un número y un carácter especial.
+        boolean hasLetter = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+
+        // Recorre cada carácter de la contraseña uno por uno.
+        for (char c : password.toCharArray()) {
+            // Si el carácter actual es una letra (a-z o A-Z), activa hasLetter.
+            if (Character.isLetter(c)) {
+                hasLetter = true;
+            // Si es un número (0-9), activa hasDigit.
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            // Si no es ni letra ni número, se considera un carácter especial.
+            } else {
+                hasSpecialChar = true;
+            }
+        }
+
+        // Solo si la contraseña tiene al menos una letra, un número y un carácter especial,
+        // se considera segura, por lo que devuelve true. Si falta alguno, devuelve false.
+        return hasLetter && hasDigit && hasSpecialChar;
+    }
+
+    // El método main es el punto de entrada del programa.
+    public static void main(String[] args) {
+        // Creamos un objeto Scanner para leer la entrada del usuario.
+        Scanner scanner = new Scanner(System.in);
+
+        // Pide al usuario que ingrese una contraseña.
+        System.out.print("Ingresa la contraseña: ");
+        String password = scanner.nextLine(); // Lee la contraseña ingresada.
+
+        // Llama al método isSecurePassword para verificar si la contraseña es segura.
+        if (isSecurePassword(password)) {
+            // Si es segura, imprime un mensaje positivo.
+            System.out.println("La contraseña es segura.");
+        } else {
+            // Si no es segura, imprime un mensaje negativo.
+            System.out.println("La contraseña no es segura.");
+        }
+
+        // Cierra el Scanner para liberar recursos.
+        scanner.close();
+    }
+}
